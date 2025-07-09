@@ -6,7 +6,7 @@ import os
 
 def predict_emotion(file_path):
     if not os.path.exists(file_path):
-        print(f"❌ File not found: {file_path}")
+        print(f" File not found: {file_path}")
         return
 
     try:
@@ -15,7 +15,7 @@ def predict_emotion(file_path):
         with open("models/label_encoder.pkl", "rb") as f:
             encoder = pickle.load(f)
     except Exception as e:
-        print(f"❌ Model or encoder loading failed: {e}")
+        print(f" Model or encoder loading failed: {e}")
         return
 
     try:
@@ -32,7 +32,7 @@ def predict_emotion(file_path):
         x_input = np.array(mfccs_mean).reshape(1, 1, 40)
 
     except Exception as e:
-        print(f"❌ Feature extraction failed: {e}")
+        print(f" Feature extraction failed: {e}")
         return
 
     try:
@@ -41,13 +41,13 @@ def predict_emotion(file_path):
         predicted_label = encoder.inverse_transform([predicted_index])[0]
 
         print("----- Emotion Recognition Result -----")
-        print(f"🎧 File Name        : {file_path}")
-        print(f"🎭 Predicted Emotion: {predicted_label}")
-        print(f"📈 Confidence       : {np.max(predictions) * 100:.2f}%")
+        print(f" File Name        : {file_path}")
+        print(f" Predicted Emotion: {predicted_label}")
+        print(f" Confidence       : {np.max(predictions) * 100:.2f}%")
         print("--------------------------------------")
 
     except Exception as e:
-        print(f"❌ Prediction failed: {e}")
+        print(f" Prediction failed: {e}")
 
 # Example usage
 if __name__ == "__main__":
